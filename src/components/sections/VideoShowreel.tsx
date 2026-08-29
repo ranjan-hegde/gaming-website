@@ -23,7 +23,7 @@ export function VideoShowreel({ currentMode, onModeChange }: VideoShowreelProps)
         muted
         playsInline
         preload="auto"
-        src="/videos/showreel-bg.mp4"
+        src="https://www.shutterstock.com/shutterstock/videos/3455010261/preview/stock-footage-animation-of-the-strategy-mobile-game-animation-of-the-gameplay-of-the-strategy-mobile-video-game.webm"
       />
 
       {/* Dark gradient overlay */}

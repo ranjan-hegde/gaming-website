@@ -15,7 +15,7 @@ export function VideoScrub() {
   const titleRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
-  const videoSrc = "/videos/scrub-video-encoded.mp4";
+  const videoSrc = "https://video-public.canva.com/VAG7Un0h2pw/v/zx-w3uupe4.mp4";
 
   // Blob-fetch for perfect scrubbing
   useEffect(() => {
