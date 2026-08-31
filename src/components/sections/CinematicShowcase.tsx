@@ -20,6 +20,26 @@ export function CinematicShowcase() {
   // State for the details modal
   const [selectedItem, setSelectedItem] = useState<Game | null>(null);
 
+  // Two stacked layers crossfade the hovered card's image into the section bg.
+  const bgARef = useRef<HTMLDivElement>(null);
+  const bgBRef = useRef<HTMLDivElement>(null);
+  const activeBg = useRef<'a' | 'b'>('a');
+
+  const setHoverBg = (img: string | null) => {
+    const a = bgARef.current, b = bgBRef.current;
+    if (!a || !b) return;
+    if (!img) {
+      gsap.to([a, b], { opacity: 0, duration: 0.7, ease: 'power2.out' });
+      return;
+    }
+    const incoming = activeBg.current === 'a' ? b : a;
+    const outgoing = activeBg.current === 'a' ? a : b;
+    incoming.style.backgroundImage = `url(${img})`;
+    gsap.to(incoming, { opacity: 0.4, duration: 0.7, ease: 'power2.out' });
+    gsap.to(outgoing, { opacity: 0, duration: 0.7, ease: 'power2.out' });
+    activeBg.current = activeBg.current === 'a' ? 'b' : 'a';
+  };
+
   const data = games;
 
   useEffect(() => {
@@ -85,6 +105,7 @@ export function CinematicShowcase() {
           style={{
             background: 'linear-gradient(135deg, #0c1220 0%, #141e30 40%, #1c1028 100%)',
           }}
+          onMouseLeave={() => setHoverBg(null)}
         >
           {/* Ambient GTA6 gradient glow */}
           <div className="absolute inset-0 z-0 pointer-events-none opacity-30"
@@ -92,6 +113,11 @@ export function CinematicShowcase() {
               background: 'radial-gradient(ellipse at 20% 50%, rgba(255,94,160,0.15), transparent 60%), radial-gradient(ellipse at 80% 50%, rgba(45,212,191,0.1), transparent 60%)',
             }}
           />
+
+          {/* Hovered card image crossfades into the background */}
+          <div ref={bgARef} className="absolute inset-0 z-[1] bg-cover bg-center opacity-0 pointer-events-none will-change-[opacity]" style={{ transform: 'scale(1.08)' }} />
+          <div ref={bgBRef} className="absolute inset-0 z-[1] bg-cover bg-center opacity-0 pointer-events-none will-change-[opacity]" style={{ transform: 'scale(1.08)' }} />
+          <div className="absolute inset-0 z-[2] pointer-events-none bg-gradient-to-b from-black/60 via-black/40 to-black/75" />
 
           <div className="relative z-10 h-full flex items-center">
 
@@ -120,6 +146,7 @@ export function CinematicShowcase() {
                   key={item.id}
                   className="shrink-0 cursor-pointer"
                   onClick={() => setSelectedItem(item)}
+                  onMouseEnter={() => setHoverBg(item.image)}
                   style={{ width: 'clamp(320px, 42vw, 580px)' }}
                 >
                   <Card3D

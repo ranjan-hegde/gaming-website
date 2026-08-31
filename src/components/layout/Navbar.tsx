@@ -67,13 +67,13 @@ export function Navbar() {
             className="relative text-2xl md:text-3xl font-[family-name:var(--font-bebas-neue)] text-white tracking-wider hover:opacity-80 transition-opacity"
             aria-label="Scroll to top"
           >
-            <span className="relative z-10">R*</span>
+            <span className="relative z-10">I*</span>
             <span
               className="absolute inset-0 blur-md opacity-40"
               style={{ color: "var(--accent-gold)" }}
               aria-hidden="true"
             >
-              R*
+              I*
             </span>
           </button>
 

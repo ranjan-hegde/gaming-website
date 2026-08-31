@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import Link from 'next/link';
+import { useLenis } from 'lenis/react';
 // We use simple SVG elements to avoid dependency on lucide-react just in case, but using standard svgs as icons.
 const GithubIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.5-1.4 6.5-7a4.6 4.6 0 0 0-1.39-3.2 4.2 4.2 0 0 0-.14-3.2s-1.12-.3-3.4 1.2a11.5 11.5 0 0 0-6.2 0C6.12 1.5 5 1.8 5 1.8a4.2 4.2 0 0 0-.14 3.2 4.6 4.6 0 0 0-1.39 3.2c0 5.6 3.35 6.6 6.5 7.02a4.8 4.8 0 0 0-1 2.98v4"/><path d="M9 20c-5 1.5-5-2.5-7-3"/></svg>
@@ -29,6 +29,7 @@ interface FullScreenDrawerProps {
 export function FullScreenDrawer({ isOpen, onClose }: FullScreenDrawerProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
+  const lenis = useLenis();
 
   // Focus management and escape key handling
   useEffect(() => {
@@ -98,14 +99,31 @@ export function FullScreenDrawer({ isOpen, onClose }: FullScreenDrawerProps) {
     }
   }, { scope: containerRef, dependencies: [isOpen] });
 
+  // Match the sections actually rendered on the page (see src/app/page.tsx).
   const navLinks = [
-    { label: 'Games', href: '#games' },
-    { label: 'Engineering', href: '#engineering' },
-    { label: 'Gallery', href: '#gallery' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'About', href: '#about' },
-    { label: 'Contact', href: '#contact' },
-  ];
+    { label: 'Home', target: 0 },
+    { label: 'Games', target: '#showcase-section' },
+    { label: 'Journey', target: '#timeline-section' },
+    { label: 'Showreel', target: '#reel-section' },
+    { label: 'Tools', target: '#tools' },
+    { label: 'Contact', target: '#contact' },
+  ] as const;
+
+  const handleNavigate = (target: string | number) => {
+    onClose();
+    // Wait for the drawer's slide-out + scroll-unlock before scrolling.
+    setTimeout(() => {
+      if (lenis) {
+        lenis.scrollTo(target, { offset: -1, duration: 1.2 });
+        return;
+      }
+      if (typeof target === 'number') {
+        window.scrollTo({ top: target, behavior: 'smooth' });
+      } else {
+        document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 380);
+  };
 
   return (
     <div
@@ -134,15 +152,15 @@ export function FullScreenDrawer({ isOpen, onClose }: FullScreenDrawerProps) {
       {/* Nav Links */}
       <div className="flex-1 flex flex-col items-center justify-center gap-6 md:gap-8 overflow-y-auto py-8">
         {navLinks.map((link) => (
-          <Link
+          <button
             key={link.label}
-            href={link.href}
-            onClick={onClose}
+            type="button"
+            onClick={() => handleNavigate(link.target)}
             className="drawer-link group relative font-[family-name:var(--font-bebas-neue)] text-4xl md:text-6xl uppercase text-[var(--text-primary,#f4f4f5)] transition-transform duration-300 hover:translate-x-1"
           >
             {link.label}
             <span className="absolute -bottom-2 left-0 w-full h-[3px] bg-[var(--accent-warm,#ff5c00)] origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100" />
-          </Link>
+          </button>
         ))}
       </div>
 

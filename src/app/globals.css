@@ -210,6 +210,11 @@ body[data-loading='true'] {
   50% { transform: translateY(-8px); }
 }
 
+@keyframes tool-float {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50% { transform: translateY(-16px) rotate(1.5deg); }
+}
+
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(200%); }

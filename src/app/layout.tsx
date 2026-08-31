@@ -25,9 +25,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 /* ─── SEO Metadata ─── */
 export const metadata: Metadata = {
-  title: "Ranju — Game Developer & Full Spectrum Engineer",
+  title: "Indraj — Game Developer & Full Spectrum Engineer",
   description:
-    "Cinematic portfolio of Ranju — a Game Developer crafting immersive worlds in Unity & Unreal Engine, and a Full Spectrum Engineer building scalable systems with React, Next.js, Python, and cloud infrastructure.",
+    "Cinematic portfolio of Indraj — a Game Developer crafting immersive worlds in Unity & Unreal Engine, and a Full Spectrum Engineer building scalable systems with React, Next.js, Python, and cloud infrastructure.",
   keywords: [
     "game developer",
     "unity developer",
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
     "React",
     "Next.js",
   ],
-  authors: [{ name: "Ranju" }],
+  authors: [{ name: "Indraj" }],
   openGraph: {
-    title: "Ranju — Game Developer & Full Spectrum Engineer",
+    title: "Indraj — Game Developer & Full Spectrum Engineer",
     description:
       "Building immersive worlds & engineering scalable systems.",
     type: "website",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ranju — Game Developer & Full Spectrum Engineer",
+    title: "Indraj — Game Developer & Full Spectrum Engineer",
     description:
       "Building immersive worlds & engineering scalable systems.",
   },

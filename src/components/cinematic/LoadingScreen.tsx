@@ -6,68 +6,57 @@ import { useGSAP } from '@gsap/react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 /**
- * LoadingScreen — A clean, minimal, cinematic loading experience
- * inspired by GTA VI. Features horizontal converging lines and a screen split.
+ * LoadingScreen — a 3-second cinematic intro. A giant letter "I" is drawn as an
+ * outline; a gradient light streaks continuously around its border. When the
+ * load finishes, the I zooms up to fill the screen and the overlay clears.
  */
 export function LoadingScreen() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const topHalfRef = useRef<HTMLDivElement>(null);
-  const bottomHalfRef = useRef<HTMLDivElement>(null);
-  const leftLineRef = useRef<HTMLDivElement>(null);
-  const rightLineRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const litRef = useRef<SVGTextElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
   const [isComplete, setIsComplete] = useState(false);
   const prefersReduced = useReducedMotion();
 
+  const finish = () => {
+    setIsComplete(true);
+    document.body.removeAttribute('data-loading');
+    window.dispatchEvent(new Event('loading-complete'));
+  };
+
   useGSAP(() => {
     if (prefersReduced) {
-      setTimeout(() => {
-        setIsComplete(true);
-        document.body.removeAttribute('data-loading');
-        window.dispatchEvent(new Event('loading-complete'));
-      }, 300);
-      return;
+      const id = setTimeout(finish, 300);
+      return () => clearTimeout(id);
+    }
+
+    // Light streaking around the R's outline (loops for the whole load).
+    const streak = gsap.to(litRef.current, {
+      attr: { 'stroke-dashoffset': -1290 },
+      duration: 1.3,
+      ease: 'none',
+      repeat: -1,
+    });
+
+    // Progress bar fills over ~2.4s.
+    if (barRef.current) {
+      gsap.fromTo(barRef.current, { scaleX: 0 }, { scaleX: 1, duration: 2.4, ease: 'power1.inOut' });
     }
 
     const tl = gsap.timeline({
-      onComplete: () => {
-        setIsComplete(true);
-        document.body.removeAttribute('data-loading');
-        window.dispatchEvent(new Event('loading-complete'));
-      }
+      onComplete: () => { streak.kill(); finish(); },
     });
 
-    // 1. (0-0.8s) Wait a moment, then lines converge
-    tl.to([leftLineRef.current, rightLineRef.current], {
-      scaleX: 1,
-      duration: 0.8,
-      ease: 'power3.inOut',
-      delay: 0.2
+    // Hold on the tracing animation, then the R zooms huge and the screen clears.
+    tl.to(innerRef.current, {
+      scale: 26,
+      opacity: 0,
+      duration: 0.9,
+      ease: 'power3.in',
+      delay: 2.5,
     });
 
-    // 2. (1.0-1.2s) Flash of light/glow in the center
-    tl.to([leftLineRef.current, rightLineRef.current], {
-      backgroundColor: '#ffffff',
-      boxShadow: '0 0 20px rgba(255,255,255,0.8)',
-      duration: 0.2,
-      ease: 'power2.in'
-    }, 1.0);
-
-    // 3. (1.2-1.8s) Screen splits open
-    tl.to(topHalfRef.current, {
-      y: '-100%',
-      duration: 0.7,
-      ease: 'power3.inOut'
-    }, 1.2);
-    
-    tl.to(bottomHalfRef.current, {
-      y: '100%',
-      duration: 0.7,
-      ease: 'power3.inOut'
-    }, 1.2);
-
-    // Clean up container
-    tl.set(containerRef.current, { display: 'none' }, 1.9);
-
+    return () => { streak.kill(); };
   }, { scope: containerRef });
 
   if (isComplete) return null;
@@ -75,29 +64,48 @@ export function LoadingScreen() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[9999] pointer-events-none flex flex-col"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[var(--bg-deep)]"
       aria-hidden="true"
     >
-      {/* Top Half */}
-      <div 
-        ref={topHalfRef}
-        className="w-full h-1/2 bg-[var(--bg-deep)] origin-top border-b border-white/5 relative"
-      >
-        <div 
-          ref={leftLineRef}
-          className="absolute bottom-0 left-0 w-1/2 h-[2px] bg-[var(--accent-gold)] origin-left scale-x-0"
-        />
-      </div>
+      <div ref={innerRef} className="flex flex-col items-center will-change-transform">
+        <svg viewBox="0 0 300 300" className="w-[42vmin] h-[42vmin]">
+          <defs>
+            <linearGradient id="r-streak" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="var(--accent-pink)" />
+              <stop offset="45%" stopColor="var(--accent-orange)" />
+              <stop offset="75%" stopColor="var(--accent-gold)" />
+              <stop offset="100%" stopColor="var(--accent-teal)" />
+            </linearGradient>
+          </defs>
+          {/* Dim base outline */}
+          <text
+            x="150" y="158" textAnchor="middle" dominantBaseline="central"
+            fontFamily="var(--font-bebas-neue), Impact, sans-serif" fontSize="300"
+            fill="none" stroke="rgba(255,255,255,0.10)" strokeWidth="2"
+          >
+            I
+          </text>
+          {/* Traveling gradient light */}
+          <text
+            ref={litRef}
+            x="150" y="158" textAnchor="middle" dominantBaseline="central"
+            fontFamily="var(--font-bebas-neue), Impact, sans-serif" fontSize="300"
+            fill="none" stroke="url(#r-streak)" strokeWidth="3.5"
+            strokeDasharray="95 1200" strokeDashoffset="0"
+            style={{ filter: 'drop-shadow(0 0 8px rgba(255,94,160,0.6))' }}
+          >
+            I
+          </text>
+        </svg>
 
-      {/* Bottom Half */}
-      <div 
-        ref={bottomHalfRef}
-        className="w-full h-1/2 bg-[var(--bg-deep)] origin-bottom relative"
-      >
-        <div 
-          ref={rightLineRef}
-          className="absolute top-0 right-0 w-1/2 h-[2px] bg-[var(--accent-teal)] origin-right scale-x-0"
-        />
+        {/* Progress bar */}
+        <div className="mt-6 w-40 h-[3px] rounded-full bg-white/10 overflow-hidden">
+          <div
+            ref={barRef}
+            className="h-full w-full origin-left rounded-full"
+            style={{ background: 'linear-gradient(90deg, var(--accent-pink), var(--accent-gold), var(--accent-teal))' }}
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,36 +1,26 @@
 "use client";
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { FileText, Download } from 'lucide-react';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Drop a real file at public/Indraj-Resume.pdf to make this download live.
-const RESUME_URL = '/Indraj-Resume.pdf';
-
-export function VideoScrub() {
+/**
+ * ShowreelScrub — a standalone pinned section (NOT a deck panel). As you scroll,
+ * the showreel video scrubs frame-by-frame while three content layers reveal in
+ * sequence: the title, the stats, then the closing quote. Sits between the two
+ * ZoomDecks so it reads as a cinematic interlude.
+ */
+export function ShowreelScrub() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
-  // Hosted online so it works on deploy without shipping a large local file.
-  // Swap for your own showreel URL (a CDN/MP4 with dense keyframes scrubs best).
-  const videoSrc = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
-
-  // Prime playback on first touch (mobile browsers gate video decoding).
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    const activate = () => { video.play().then(() => video.pause()).catch(() => {}); };
-    document.documentElement.addEventListener('touchstart', activate, { once: true });
-    return () => document.documentElement.removeEventListener('touchstart', activate);
-  }, []);
 
   useGSAP(() => {
     const wrapper = wrapperRef.current;
@@ -39,62 +29,40 @@ export function VideoScrub() {
 
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Drive the video playhead from the scroll position across the 500vh range.
+    // Scrub the video's playhead across the scroll range.
     const initScrub = () => {
-      if (reduce) return;
       gsap.fromTo(video,
         { currentTime: 0 },
         {
           currentTime: video.duration || 1,
           ease: 'none',
-          scrollTrigger: {
-            trigger: wrapper,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 1,
-            invalidateOnRefresh: true,
-          },
+          scrollTrigger: { trigger: wrapper, start: 'top top', end: 'bottom bottom', scrub: 0.5, invalidateOnRefresh: true },
         }
       );
-      // Positions were computed before metadata was known — re-measure now.
-      ScrollTrigger.refresh();
     };
+    if (!reduce) {
+      if (video.readyState >= 1) initScrub();
+      else video.addEventListener('loadedmetadata', initScrub, { once: true });
+    }
 
-    if (video.readyState >= 1) initScrub();
-    else video.addEventListener('loadedmetadata', initScrub, { once: true });
-
-    // Content layers reveal in sequence, tied to scroll progress.
-    const reveal = (
-      el: HTMLElement | null,
-      inStart: string, inEnd: string,
-      outStart?: string, outEnd?: string,
-    ) => {
+    // Sequential content reveals — one after another.
+    const reveal = (el: HTMLElement | null, inStart: string, inEnd: string, outStart?: string, outEnd?: string) => {
       if (!el) return;
-      gsap.fromTo(el,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1, y: 0,
-          scrollTrigger: { trigger: wrapper, start: inStart, end: inEnd, scrub: 1 },
-        }
-      );
+      gsap.fromTo(el, { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, scrollTrigger: { trigger: wrapper, start: inStart, end: inEnd, scrub: 1 } });
       if (outStart && outEnd) {
-        gsap.to(el, {
-          opacity: 0, y: -40,
-          scrollTrigger: { trigger: wrapper, start: outStart, end: outEnd, scrub: 1 },
-        });
+        gsap.to(el, { opacity: 0, y: -40, scrollTrigger: { trigger: wrapper, start: outStart, end: outEnd, scrub: 1 } });
       }
     };
 
-    reveal(titleRef.current, 'top top', '18% top', '30% top', '42% top');
-    reveal(statsRef.current, '40% top', '52% top', '60% top', '70% top');
-    reveal(quoteRef.current, '70% top', '84% top');
+    reveal(titleRef.current, 'top 60%', '15% top', '30% top', '45% top');
+    reveal(statsRef.current, '35% top', '50% top', '58% top', '68% top');
+    reveal(quoteRef.current, '68% top', '82% top');
   }, { scope: wrapperRef });
 
   return (
-    <div ref={wrapperRef} className="relative" style={{ height: '500vh' }}>
+    <div ref={wrapperRef} className="relative" style={{ height: '420vh' }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
-
-        {/* Scrubbed video */}
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
@@ -102,35 +70,15 @@ export function VideoScrub() {
           playsInline
           preload="auto"
           poster="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=2069&auto=format&fit=crop"
-          src={videoSrc}
+          src="/videos/scrub-video-encoded.mp4"
         />
 
         {/* Readability + color wash */}
-        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-black/60 via-transparent to-black/75" />
-        <div className="absolute inset-0 z-10 pointer-events-none opacity-20 mix-blend-color"
+        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-black/50 via-transparent to-black/70" />
+        <div
+          className="absolute inset-0 z-10 pointer-events-none opacity-20 mix-blend-color"
           style={{ background: 'linear-gradient(135deg, rgba(255,94,160,0.3), transparent 50%, rgba(45,212,191,0.2))' }}
         />
-
-        {/* Top-left showreel label (stays put while scrubbing) */}
-        <div className="absolute top-0 left-0 z-30 flex items-center px-6 md:px-12 py-6 md:py-8">
-          <span className="font-mono text-[10px] md:text-xs tracking-[0.4em] uppercase text-white/60 flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-[var(--accent-pink)] animate-pulse" />
-            Showreel · 2026
-          </span>
-        </div>
-
-        {/* Resume download — a bit below center of the reel, always visible */}
-        <div className="absolute inset-0 z-40 flex items-center justify-center pointer-events-none">
-          <a
-            href={RESUME_URL}
-            download
-            className="group pointer-events-auto mt-[32vh] inline-flex items-center gap-3.5 px-9 py-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl text-white font-mono text-sm md:text-base tracking-[0.25em] uppercase shadow-[0_10px_50px_rgba(0,0,0,0.6)] hover:bg-[var(--accent-gold)] hover:text-black hover:border-[var(--accent-gold)] hover:shadow-[0_10px_60px_rgba(240,192,64,0.5)] transition-all duration-300"
-          >
-            <FileText className="w-5 h-5" />
-            Download Resume
-            <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-          </a>
-        </div>
 
         {/* Layer 1: Title */}
         <div ref={titleRef} className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none opacity-0 px-6">
@@ -177,7 +125,6 @@ export function VideoScrub() {
             <div className="mt-8 w-16 h-[1px] mx-auto bg-gradient-to-r from-transparent via-[var(--accent-pink)] to-transparent" />
           </div>
         </div>
-
       </div>
     </div>
   );

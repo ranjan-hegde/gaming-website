@@ -11,12 +11,13 @@ export interface Game {
   platforms: string[]; 
   year: string;
   image: string;
+  screenshots?: string[]; // Gallery images revealed from the 3D case
   videoUrl?: string; // For the modal background
   downloadUrl?: string; // For the download button
   features?: string[];
   challenges?: { problem: string; solution: string }[];
 }
-export interface ToolItem { name: string; category: string; icon: string; }
+export interface ToolItem { name: string; category: string; icon: string; color: string; logo: string; }
 export interface SkillCategory { title: string; icon: string; items: string[]; }
 export interface Stat { value: string; label: string; }
 export interface NavLink { label: string; href: string; }
@@ -50,6 +51,12 @@ export const games: Game[] = [
     language: "GDScript",
     year: "2024",
     image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop",
+    screenshots: [
+      "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1493160191154-40e1b7c0e6cb?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop"
+    ],
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     downloadUrl: "https://drive.google.com/file/d/1qFtuQtF_5eAo4hMFDfJ0TDKURvSa-ZuV/view?usp=drive_link",
     description: "A 2D pixel-art platformer where you guide a frog robot through challenging levels filled with enemies, collectibles, and obstacles.",
@@ -79,6 +86,12 @@ export const games: Game[] = [
     language: "Python",
     year: "2024",
     image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2000&auto=format&fit=crop",
+    screenshots: [
+      "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop"
+    ],
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     downloadUrl: "https://github.com/Indraj-2005/Pirates-Maker",
     description: "A 2D pirate-themed platformer built with Python & Pygame, featuring sword combat, 6 handcrafted levels, and a world map navigation system.",
@@ -108,6 +121,12 @@ export const games: Game[] = [
     language: "C#",
     year: "2025",
     image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop",
+    screenshots: [
+      "https://images.unsplash.com/photo-1552058544-f2b08422138a?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1607853202273-797f1c22a38e?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1600&auto=format&fit=crop"
+    ],
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
     downloadUrl: "https://drive.google.com/file/d/105Anq3jXxY9nDemarrSyb6CFoXJkK6qv/view?usp=drive_link",
     description: "A thrilling 2D action-defense adventure built in Unity where you protect Queen Isolde by slaying waves of undead skeletons.",
@@ -140,6 +159,12 @@ export const games: Game[] = [
     language: "C#",
     year: "2025",
     image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2071&auto=format&fit=crop",
+    screenshots: [
+      "https://images.unsplash.com/photo-1547394765-185e1e68f34e?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop"
+    ],
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
     downloadUrl: "#", // In development
     description: "A high-speed 3D low-poly racing game built in Unity featuring hovercraft vehicles, desert tracks, and time attack modes.",
@@ -218,17 +243,19 @@ export const historyTimeline: TimelineEvent[] = [
   }
 ];
 
+// Drop transparent PNG logos at public/logos/<icon>.png to light these up.
+// Until then, each card falls back to a color-tinted monogram automatically.
 export const tools: ToolItem[] = [
-  { name: 'Unity', category: 'Game Engines', icon: 'unity' },
-  { name: 'Unreal Engine', category: 'Game Engines', icon: 'unreal' },
-  { name: 'Blender', category: '3D & Modeling', icon: 'blender' },
-  { name: 'Cinema 4D', category: '3D & Modeling', icon: 'cinema4d' },
-  { name: 'Autodesk Maya', category: '3D & Modeling', icon: 'maya' },
-  { name: 'Adobe After Effects', category: 'Post-Production', icon: 'aftereffects' },
-  { name: 'DaVinci Resolve', category: 'Post-Production', icon: 'resolve' },
-  { name: 'C#', category: 'Languages', icon: 'csharp' },
-  { name: 'C++', category: 'Languages', icon: 'cpp' },
-  { name: 'HLSL/GLSL', category: 'Languages', icon: 'shader' }
+  { name: 'Unity', category: 'Game Engines', icon: 'unity', color: '#2196F3', logo: '/logos/unity.png' },
+  { name: 'Unreal Engine', category: 'Game Engines', icon: 'unreal', color: '#1FA2FF', logo: '/logos/unreal.png' },
+  { name: 'Blender', category: '3D & Modeling', icon: 'blender', color: '#EA7600', logo: '/logos/blender.png' },
+  { name: 'Cinema 4D', category: '3D & Modeling', icon: 'cinema4d', color: '#5B4BFF', logo: '/logos/cinema4d.png' },
+  { name: 'Autodesk Maya', category: '3D & Modeling', icon: 'maya', color: '#0696D7', logo: '/logos/maya.png' },
+  { name: 'Adobe After Effects', category: 'Post-Production', icon: 'aftereffects', color: '#9D5CFF', logo: '/logos/aftereffects.png' },
+  { name: 'DaVinci Resolve', category: 'Post-Production', icon: 'resolve', color: '#E64A19', logo: '/logos/resolve.png' },
+  { name: 'C#', category: 'Languages', icon: 'csharp', color: '#A179DC', logo: '/logos/csharp.png' },
+  { name: 'C++', category: 'Languages', icon: 'cpp', color: '#00599C', logo: '/logos/cpp.png' },
+  { name: 'HLSL/GLSL', category: 'Languages', icon: 'shader', color: '#FF4088', logo: '/logos/shader.png' }
 ];
 
 export const skills: SkillCategory[] = [

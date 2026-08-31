@@ -17,7 +17,7 @@ export function Footer() {
           {/* Brand Col */}
           <div className="col-span-1 lg:col-span-2">
             <h2 className="font-[family-name:var(--font-bebas-neue)] text-4xl text-white mb-4">
-              RANJU
+              INDRAJ
             </h2>
             <p className="text-[var(--text-secondary)] max-w-sm mb-6">
               Building immersive worlds and engineering scalable systems. Available for freelance opportunities and full-time roles.
@@ -58,7 +58,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-white/5 gap-4">
           <p className="text-[var(--text-muted)] text-sm font-mono">
-            © {new Date().getFullYear()} Ranju. All rights reserved.
+            © {new Date().getFullYear()} Indraj. All rights reserved.
           </p>
 
           <button 
