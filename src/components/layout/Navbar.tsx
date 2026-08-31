@@ -2,17 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { FullScreenDrawer } from "./FullScreenDrawer";
-import { PortfolioMode } from "@/app/page";
-
-interface NavbarProps {
-  currentMode?: PortfolioMode;
-  onModeChange?: (mode: PortfolioMode) => void;
-}
 
 /**
- * Navbar — Sticky navigation bar with mode switcher and hamburger menu.
+ * Navbar — Sticky navigation bar with hamburger menu.
  */
-export function Navbar({ currentMode, onModeChange }: NavbarProps) {
+export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,11 +43,6 @@ export function Navbar({ currentMode, onModeChange }: NavbarProps) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleModeClick = (mode: PortfolioMode) => {
-    if (onModeChange) onModeChange(mode);
-    setIsMenuOpen(false); // Close drawer if open
-  };
-
   return (
     <>
       <nav
@@ -88,31 +77,7 @@ export function Navbar({ currentMode, onModeChange }: NavbarProps) {
             </span>
           </button>
 
-          {/* Center Mode Switcher (Desktop) */}
-          {currentMode && onModeChange && (
-            <div className="hidden md:flex items-center bg-white/5 backdrop-blur-md rounded-full p-1 border border-white/10">
-              <button
-                onClick={() => handleModeClick('games')}
-                className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all ${
-                  currentMode === 'games' 
-                    ? 'bg-[var(--accent-gold)] text-[var(--bg-deep)]' 
-                    : 'text-[var(--text-secondary)] hover:text-white'
-                }`}
-              >
-                Game Dev
-              </button>
-              <button
-                onClick={() => handleModeClick('engineering')}
-                className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all ${
-                  currentMode === 'engineering' 
-                    ? 'bg-[var(--accent-teal)] text-[var(--bg-deep)]' 
-                    : 'text-[var(--text-secondary)] hover:text-white'
-                }`}
-              >
-                Engineering
-              </button>
-            </div>
-          )}
+
 
           {/* Right side actions */}
           <div className="flex items-center gap-3">

@@ -1,154 +1,220 @@
 // Types
-export interface Game {
-  id: string;
-  title: string;
-  genre: string;
-  engine: string;
-  language: string;
-  description: string;
-  longDescription: string;
-  techStack: string[];
-  platforms: string[];
+export interface Game { 
+  id: string; 
+  title: string; 
+  genre: string; 
+  engine: string; 
+  language: string; 
+  description: string; 
+  longDescription: string; 
+  techStack: string[]; 
+  platforms: string[]; 
   year: string;
+  image: string;
+  videoUrl?: string; // For the modal background
+  downloadUrl?: string; // For the download button
+  features?: string[];
+  challenges?: { problem: string; solution: string }[];
+}
+export interface ToolItem { name: string; category: string; icon: string; }
+export interface SkillCategory { title: string; icon: string; items: string[]; }
+export interface Stat { value: string; label: string; }
+export interface NavLink { label: string; href: string; }
+export interface SocialLink { platform: string; url: string; icon: string; }
+
+export interface Project { 
+  id: string; 
+  title: string; 
+  type: string; 
+  description: string; 
+  longDescription: string; 
+  techStack: string[]; 
+  liveUrl?: string; 
+  sourceUrl?: string; 
+  year: string; 
   image: string;
 }
 
-export interface Project {
-  id: string;
-  title: string;
-  type: string;
-  description: string;
-  longDescription: string;
-  techStack: string[];
-  liveUrl?: string;
-  sourceUrl?: string;
+export interface TimelineEvent {
   year: string;
-  image: string;
-}
-
-export interface ToolItem {
-  name: string;
-  category: string;
-  icon: string;
-}
-
-export interface SkillCategory {
   title: string;
-  icon: string;
-  items: string[];
-}
-
-export interface Stat {
-  value: string;
-  label: string;
-}
-
-export interface NavLink {
-  label: string;
-  href: string;
-}
-
-export interface SocialLink {
-  platform: string;
-  url: string;
-  icon: string;
+  description: string;
 }
 
 export const games: Game[] = [
   {
-    id: 'phantom-divide',
-    title: 'Phantom Divide',
-    genre: 'Survival Horror',
-    engine: 'Unity',
-    language: 'C#',
-    description: 'A psychological survival horror game pushing graphical fidelity in Unity.',
-    longDescription: 'Phantom Divide plunges players into an isolated research facility where reality bends around them. Using advanced rendering techniques via HDRP, the game dynamically shifts its environment based on player actions. Lighting is not just aesthetic, it is a core gameplay mechanic.\n\nThe project features a bespoke inventory and crafting system, intelligent AI that learns from player habits, and a procedural event system that ensures no two playthroughs are the same. Engineered for high performance on both PC and modern consoles.',
-    techStack: ['HDRP', 'Shader Graph', 'Wwise', 'ProBuilder'],
-    platforms: ['PC', 'Console'],
-    year: '2024',
-    image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1200&q=80',
+    id: "1",
+    title: "Kero Bot",
+    genre: "2D Platformer",
+    engine: "Godot",
+    language: "GDScript",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    downloadUrl: "https://drive.google.com/file/d/1qFtuQtF_5eAo4hMFDfJ0TDKURvSa-ZuV/view?usp=drive_link",
+    description: "A 2D pixel-art platformer where you guide a frog robot through challenging levels filled with enemies, collectibles, and obstacles.",
+    longDescription: "Kero Bot is a classic-style 2D platformer built in Godot Engine. Players control a small frog robot navigating through multiple themed levels — from grassy outdoor areas to underground caves and twilight skies. The game features touch-based controls with directional buttons and a jump mechanic, collectible cherries for scoring, enemy mushrooms to avoid, and a health system with heart-based lives.",
+    techStack: ["Godot", "GDScript", "Pixel Art", "Mobile Input"],
+    platforms: ["Android"],
+    features: [
+      "Touch-based directional controls & jump button",
+      "Multi-level progression with unique themed environments",
+      "Points system with cherry collectibles",
+      "Health system with heart-based lives",
+      "Enemy mushroom AI with patrol behavior",
+      "Pause menu with resume & main menu options"
+    ],
+    challenges: [
+      {
+        problem: "Making responsive touch controls that feel precise on mobile devices",
+        solution: "Implemented custom touch input zones with adjustable dead zones and immediate response to directional and jump inputs"
+      }
+    ]
   },
   {
-    id: 'velocity-apex',
-    title: 'Velocity Apex',
-    genre: 'Arcade Racing',
-    engine: 'Unreal Engine',
-    language: 'C++',
-    description: 'A high-octane arcade racing experience with deep vehicle customization.',
-    longDescription: 'Velocity Apex brings back the golden era of arcade racers, modernized with Unreal Engine 5. Leveraging the Chaos Physics engine, vehicles feel heavy yet responsive. Every drift, crash, and boost is calculated in real-time, accompanied by stunning Niagara VFX.\n\nThe game includes a robust custom shader library to render rain, neon lights, and metallic surfaces realistically while maintaining 60 FPS on lower-end hardware. The multiplayer architecture supports up to 16 players seamlessly.',
-    techStack: ['Chaos Physics', 'Niagara VFX', 'Custom Shaders'],
-    platforms: ['PC', 'Console'],
-    year: '2023',
-    image: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=80',
+    id: "2",
+    title: "Pirates Maker",
+    genre: "2D Platformer",
+    engine: "Python / Pygame",
+    language: "Python",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2000&auto=format&fit=crop",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    downloadUrl: "https://github.com/Indraj-2005/Pirates-Maker",
+    description: "A 2D pirate-themed platformer built with Python & Pygame, featuring sword combat, 6 handcrafted levels, and a world map navigation system.",
+    longDescription: "Pirates Maker is a pixel-art 2D platformer developed entirely in Python using the Pygame library. Players take on the role of a swashbuckling pirate navigating through 6 distinct island levels connected by a world map. The game features sword-based combat against enemy robots, palm-tree-filled tropical environments, platforming challenges across floating stone islands, and a timer-based scoring system.",
+    techStack: ["Python", "Pygame", "Sprite Animation", "Custom Engine"],
+    platforms: ["PC"],
+    features: [
+      "Sword-based combat with enemy AI",
+      "6 handcrafted levels with unique layouts",
+      "World map navigation with level connections",
+      "Timer-based scoring & Game Over stats",
+      "Touch & keyboard controls with jump mechanics",
+      "Pixel-art pirate theme with tropical environments"
+    ],
+    challenges: [
+      {
+        problem: "Building a full game engine from scratch without a dedicated game framework",
+        solution: "Implemented custom game loop, collision detection, sprite management, and scene transitions using only Pygame primitives"
+      }
+    ]
   },
   {
-    id: 'lumina',
-    title: 'Lumina',
-    genre: 'Puzzle Platformer',
-    engine: 'Unity',
-    language: 'C#',
-    description: 'A beautiful puzzle platformer focusing on light manipulation and atmosphere.',
-    longDescription: 'Lumina tasks players with guiding a fragile spark of light through a ruined world. Using Unity URP, we developed a custom lighting system that allows the player to paint the environment with illuminated colors, which act as physical platforms.\n\nDesigned primarily with ProBuilder and polished using Cinemachine for dynamic camera tracking, the game provides a seamless, immersive experience across platforms from high-end PCs to mobile devices via WebGL and native builds.',
-    techStack: ['URP', 'Custom Lighting System', 'ProBuilder', 'Cinemachine'],
-    platforms: ['PC', 'WebGL', 'Mobile'],
-    year: '2023',
-    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200&q=80',
+    id: "3",
+    title: "Fire-Hits",
+    genre: "Action-Defense",
+    engine: "Unity",
+    language: "C#",
+    year: "2025",
+    image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070&auto=format&fit=crop",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+    downloadUrl: "https://drive.google.com/file/d/105Anq3jXxY9nDemarrSyb6CFoXJkK6qv/view?usp=drive_link",
+    description: "A thrilling 2D action-defense adventure built in Unity where you protect Queen Isolde by slaying waves of undead skeletons.",
+    longDescription: "Fire-Hits is a 2D action-defense game built in Unity Engine for Android. Players take on the role of a warrior tasked with protecting Queen Isolde from waves of attacking skeleton enemies in a dark, atmospheric forest setting. The game features real-time combat with a sword attack system, directional movement controls, a kill counter to track your score, and a survival timer.",
+    techStack: ["Unity", "C#", "Object Pooling", "Mobile Controls"],
+    platforms: ["Android"],
+    features: [
+      "Real-time sword combat against skeleton waves",
+      "Kill counter & survival timer HUD",
+      "Directional movement with attack button",
+      "Dark atmospheric pixel-art forest environment",
+      "Full menu system — pause, resume, main menu, quit"
+    ],
+    challenges: [
+      {
+        problem: "Managing multiple enemy waves spawning from both sides simultaneously",
+        solution: "Implemented an object pooling system with directional spawn points and wave difficulty scaling based on survival time"
+      },
+      {
+        problem: "Creating responsive touch combat that feels satisfying on mobile",
+        solution: "Fine-tuned attack hitbox timing, added hit feedback animations, and optimized input detection for simultaneous move + attack actions"
+      }
+    ]
   },
   {
-    id: 'iron-protocol',
-    title: 'Iron Protocol',
-    genre: 'Multiplayer Arena Shooter',
-    engine: 'Unreal Engine',
-    language: 'C++',
-    description: 'A fast-paced multiplayer arena shooter emphasizing verticality and precision.',
-    longDescription: 'Iron Protocol redefines the arena shooter genre by introducing grappling mechanics and zero-G zones. Built entirely in C++ within Unreal Engine, it features a custom netcode implementation to ensure minimal latency during high-speed engagements.\n\nThe backend relies on Epic Online Services (EOS) for matchmaking, lobbies, and dedicated server orchestration. Comprehensive anti-cheat and robust state replication guarantee competitive integrity at all times.',
-    techStack: ['Dedicated Servers', 'EOS', 'Replication', 'Anti-Cheat'],
-    platforms: ['PC'],
-    year: '2024',
-    image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80',
+    id: "4",
+    title: "PolyRace",
+    genre: "3D Racing",
+    engine: "Unity",
+    language: "C#",
+    year: "2025",
+    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2071&auto=format&fit=crop",
+    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+    downloadUrl: "#", // In development
+    description: "A high-speed 3D low-poly racing game built in Unity featuring hovercraft vehicles, desert tracks, and time attack modes.",
+    longDescription: "PolyRace is a 3D racing game built in Unity with a stunning low-poly art style. Players pilot futuristic hovercrafts at extreme speeds (600+ km/h) through procedurally styled desert canyon tracks. The game features a full HUD with speedometer, distance tracker, and precision lap timer. It includes a training mode with hovercraft selection, level selection, and race type options.",
+    techStack: ["Unity", "C#", "3D Physics", "Low Poly Art"],
+    platforms: ["PC"],
+    features: [
+      "High-speed hovercraft racing at 600+ km/h",
+      "Low-poly desert canyon environments",
+      "Precision speedometer & lap timer HUD",
+      "Training mode with vehicle & track selection",
+      "Full settings system — audio, video, resolution"
+    ],
+    challenges: [
+      {
+        problem: "Achieving smooth high-speed movement without physics jitter at 600+ km/h",
+        solution: "Implemented custom hovercraft physics with fixed-timestep updates, interpolation, and camera smoothing to maintain fluid visuals at extreme speeds"
+      }
+    ]
   }
 ];
 
 export const projects: Project[] = [
   {
-    id: 'neuralflow',
+    id: '1',
     title: 'NeuralFlow',
     type: 'AI Agent Platform',
-    description: 'A scalable platform for deploying and orchestrating intelligent AI agents.',
-    longDescription: 'NeuralFlow provides a robust infrastructure for building and deploying LangChain-powered AI agents. It features a Next.js frontend for monitoring agent activities in real-time via WebSockets and a Python backend for heavy lifting.',
-    techStack: ['Next.js', 'Python', 'LangChain', 'Kubernetes', 'Redis', 'WebSocket'],
+    description: 'Distributed orchestration platform for autonomous AI agents.',
+    longDescription: 'A highly scalable orchestration system designed to manage and monitor autonomous AI agents in real-time. Built with a robust microservices architecture.',
+    techStack: ['Next.js', 'Python', 'LangChain', 'Kubernetes'],
     year: '2024',
-    image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2000&auto=format&fit=crop'
   },
   {
-    id: 'meridian',
+    id: '2',
     title: 'Meridian',
-    type: 'Real-time SaaS Dashboard',
-    description: 'A high-performance SaaS dashboard for real-time analytics and data visualization.',
-    longDescription: 'Meridian processes millions of data points, streaming them directly to a responsive React frontend. Utilizing GraphQL and WebSockets, users get live updates with zero refresh required, backed by an optimized PostgreSQL and Redis stack.',
-    techStack: ['React', 'Node.js', 'PostgreSQL', 'Redis', 'GraphQL', 'WebSocket'],
+    type: 'SaaS Dashboard',
+    description: 'Real-time analytics dashboard processing millions of events.',
+    longDescription: 'An enterprise-grade analytics dashboard that processes and visualizes high-throughput telemetry data in real-time.',
+    techStack: ['React', 'Node.js', 'PostgreSQL', 'Redis'],
     year: '2024',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop'
+  }
+];
+
+export const historyTimeline: TimelineEvent[] = [
+  {
+    year: '2024',
+    title: 'Started Game Development',
+    description: 'Took my first steps into game programming using Godot, learning the core fundamentals of game logic, scene trees, and node-based architectures.'
   },
   {
-    id: 'synthwave',
-    title: 'Synthwave',
-    type: 'ML Training Pipeline',
-    description: 'An automated machine learning training pipeline for computer vision models.',
-    longDescription: 'Synthwave streamlines the ML lifecycle from data ingestion to model deployment. Built on PyTorch and orchestrated via AWS SageMaker and MLflow, it allows researchers to reproduce experiments seamlessly in isolated Docker containers.',
-    techStack: ['Python', 'PyTorch', 'Docker', 'AWS SageMaker', 'MLflow'],
-    year: '2023',
-    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
+    year: '2024 – 2025',
+    title: 'Built First Game',
+    description: 'Designed and programmed my initial complete game project, focusing on player controls, core loops, and UI integration.'
   },
   {
-    id: 'archway',
-    title: 'Archway',
-    type: 'CLI Development Toolkit',
-    description: 'A comprehensive toolkit for building modular Command Line Interfaces.',
-    longDescription: 'Archway is an open-source framework written in TypeScript and Go that simplifies CLI development. It features a robust plugin architecture, making it easy for developers to extend functionality and build complex tooling quickly.',
-    techStack: ['TypeScript', 'Node.js', 'Go', 'Plugin Architecture'],
-    year: '2023',
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80',
+    year: '2025',
+    title: 'Learned Unity',
+    description: 'Expanded into Unity to master C# scripting, 3D asset workflows, component systems, and performance optimization techniques.'
+  },
+  {
+    year: '2025',
+    title: 'Learned Unreal Engine',
+    description: 'Dived into Unreal Engine to work with advanced rendering features, materials, physics systems, and Blueprint/C++ integration.'
+  },
+  {
+    year: '2025 – 2026',
+    title: 'Built Additional Games',
+    description: 'Developed and released 4 to 5 complete titles across different genres, refining game mechanics, level design, and system architecture.'
+  },
+  {
+    year: 'Present',
+    title: 'Building High-Graphics 3D Racing Game',
+    description: 'Currently building a high-fidelity 3D racing game featuring realistic vehicle physics, dynamic lighting, and optimized real-time rendering.'
   }
 ];
 
@@ -218,3 +284,4 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const narrativeText: string = "I build worlds and I build systems. From real-time 3D environments crafted in Unity and Unreal Engine to distributed cloud architectures and intelligent AI pipelines. Every project starts with the same question: how do we make this feel alive? Whether it's the procedural lighting in a horror game or the real-time data streaming in a SaaS dashboard, I obsess over the details that transform good software into unforgettable experiences. Code is my medium. Impact is the measure.";
+

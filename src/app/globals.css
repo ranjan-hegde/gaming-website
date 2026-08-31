@@ -161,9 +161,15 @@ body[data-loading='true'] {
 
 /* ─── Container ─── */
 .container-custom {
-  max-width: var(--container-max);
-  margin-inline: auto;
-  padding-inline: var(--container-padding);
+  @apply w-full max-w-[var(--container-max)] mx-auto px-[var(--container-padding)];
+}
+
+/* 3D Utilities */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
 }
 
 /* ─── Animations ─── */
