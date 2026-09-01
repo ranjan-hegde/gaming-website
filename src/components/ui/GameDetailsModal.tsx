@@ -181,6 +181,7 @@ export function GameDetailsModal({ item, onClose }: GameDetailsModalProps) {
                   <a
                     href={item.downloadUrl}
                     target="_blank"
+                    download
                     rel="noopener noreferrer"
                     className="flex-1 inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-[var(--accent-pink)] to-[var(--accent-orange)] text-white font-mono tracking-widest uppercase hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,94,160,0.4)]"
                   >

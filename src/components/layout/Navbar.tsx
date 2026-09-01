@@ -1,16 +1,73 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { FullScreenDrawer } from "./FullScreenDrawer";
+import { Volume2, VolumeX } from "lucide-react";
 
 /**
- * Navbar — Sticky navigation bar with hamburger menu.
+ * Navbar — Sticky navigation bar with hamburger menu and BGM control.
  */
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
+
+  // Audio state
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Initialize audio on mount
+  useEffect(() => {
+    audioRef.current = new Audio("/bgm.mp3");
+    audioRef.current.loop = true;
+    audioRef.current.volume = 0.4; // Slightly lower volume for BGM
+
+    // Attempt to play on first user interaction to bypass autoplay restrictions
+    const handleInteraction = () => {
+      if (!hasInteracted && audioRef.current) {
+        audioRef.current
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+            setHasInteracted(true);
+          })
+          .catch((err) => {
+            console.log("Autoplay blocked:", err);
+          });
+      }
+      
+      document.removeEventListener("click", handleInteraction);
+      document.removeEventListener("keydown", handleInteraction);
+      document.removeEventListener("scroll", handleInteraction);
+    };
+
+    document.addEventListener("click", handleInteraction);
+    document.addEventListener("keydown", handleInteraction);
+    document.addEventListener("scroll", handleInteraction, { passive: true });
+
+    return () => {
+      document.removeEventListener("click", handleInteraction);
+      document.removeEventListener("keydown", handleInteraction);
+      document.removeEventListener("scroll", handleInteraction);
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
+  }, [hasInteracted]);
+
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        audioRef.current.play().then(() => setIsPlaying(true));
+      }
+      setHasInteracted(true); // User explicitly interacted
+    }
+  };
 
   const handleScroll = useCallback(() => {
     const currentY = window.scrollY;
@@ -36,7 +93,9 @@ export function Navbar() {
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isMenuOpen]);
 
   const scrollToTop = () => {
@@ -77,10 +136,21 @@ export function Navbar() {
             </span>
           </button>
 
-
-
           {/* Right side actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
+            {/* Music Toggle */}
+            <button
+              onClick={toggleMusic}
+              className="relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors text-white"
+              aria-label={isPlaying ? "Mute music" : "Play music"}
+            >
+              {isPlaying ? (
+                <Volume2 className="w-5 h-5 text-[var(--accent-gold)]" />
+              ) : (
+                <VolumeX className="w-5 h-5 text-white/50" />
+              )}
+            </button>
+
             {/* Hamburger */}
             <button
               data-menu-open={isMenuOpen ? "true" : "false"}
