@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useLenis } from 'lenis/react';
 import { ArrowDown, Play } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -150,6 +151,16 @@ export default function Hero() {
             Watch Reel
           </button>
         </div>
+      </div>
+
+      {/* Social Links overlay (Bottom Left) */}
+      <div className="absolute bottom-8 lg:bottom-12 left-6 lg:left-12 z-20 flex flex-col gap-4 hero-rise">
+        <a href="https://github.com/Indraj-2005" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/20 bg-black/40 backdrop-blur-md flex items-center justify-center text-[var(--text-secondary)] hover:text-white hover:border-[var(--accent-pink)] hover:shadow-[0_0_15px_rgba(255,94,160,0.3)] transition-all group">
+          <FaGithub className="w-4 h-4 group-hover:scale-110 transition-transform" />
+        </a>
+        <a href="https://www.linkedin.com/in/indraj-a-g-6701b4342/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/20 bg-black/40 backdrop-blur-md flex items-center justify-center text-[var(--text-secondary)] hover:text-white hover:border-[var(--accent-teal)] hover:shadow-[0_0_15px_rgba(45,212,191,0.3)] transition-all group">
+          <FaLinkedin className="w-4 h-4 group-hover:scale-110 transition-transform" />
+        </a>
       </div>
 
       {/* Scroll indicator */}

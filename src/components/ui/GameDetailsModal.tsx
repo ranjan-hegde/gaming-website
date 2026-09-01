@@ -8,6 +8,7 @@ import { useLenis } from 'lenis/react';
 import { Download, X, ArrowLeft, MousePointerClick, Play } from 'lucide-react';
 import { Game } from '@/lib/data';
 import { GameBox3D } from './GameBox3D';
+import { getTechStyle } from '@/lib/techIcons';
 
 interface GameDetailsModalProps {
   item: Game | null;
@@ -216,11 +217,27 @@ export function GameDetailsModal({ item, onClose }: GameDetailsModalProps) {
               <div className="mb-7">
                 <h4 className="font-mono text-xs tracking-widest text-white/50 uppercase mb-3">Tech Stack</h4>
                 <div className="flex flex-wrap gap-2">
-                  {item.techStack.map((tech) => (
-                    <span key={tech} className="px-3 py-1.5 text-xs font-mono tracking-widest bg-white/5 border border-white/10 rounded-full text-white/70">
-                      {tech}
-                    </span>
-                  ))}
+                  {item.techStack.map((tech) => {
+                    const style = getTechStyle(tech);
+                    const Icon = style.icon;
+                    return (
+                      <span 
+                        key={tech} 
+                        className="flex items-center gap-2 px-3 py-1.5 text-xs font-mono tracking-widest border rounded-full"
+                        style={{
+                          backgroundColor: `${style.color}25`, // 25 opacity hex
+                          borderColor: `${style.color}50`, // 50 opacity hex
+                          color: 'rgba(255, 255, 255, 0.9)'
+                        }}
+                      >
+                        <Icon 
+                          className="w-3.5 h-3.5" 
+                          style={{ color: style.color }} 
+                        />
+                        {tech}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
 

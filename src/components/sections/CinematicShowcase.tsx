@@ -8,6 +8,7 @@ import { Card3D } from '@/components/ui/Card3D';
 import { GameDetailsModal } from '@/components/ui/GameDetailsModal';
 import { Game, games } from '@/lib/data';
 import { Play } from 'lucide-react';
+import { getTechStyle } from '@/lib/techIcons';
 
 // Golden ratio: 1.618
 const GOLDEN_RATIO = 1.618;
@@ -199,11 +200,24 @@ export function CinematicShowcase() {
 
                         {/* Tech tags — only show first 3 */}
                         <div className="flex flex-wrap gap-1.5 mb-4">
-                          {item.techStack.slice(0, 3).map((tech: string) => (
-                            <span key={tech} className="px-2.5 py-0.5 text-[10px] font-mono tracking-wider bg-white/5 border border-white/10 rounded-full text-white/60">
-                              {tech}
-                            </span>
-                          ))}
+                          {item.techStack.slice(0, 3).map((tech: string) => {
+                            const style = getTechStyle(tech);
+                            const Icon = style.icon;
+                            return (
+                              <span 
+                                key={tech} 
+                                className="flex items-center gap-1.5 px-2.5 py-0.5 text-[10px] font-mono tracking-wider border rounded-full"
+                                style={{
+                                  backgroundColor: `${style.color}25`,
+                                  borderColor: `${style.color}50`,
+                                  color: 'rgba(255, 255, 255, 0.9)'
+                                }}
+                              >
+                                <Icon className="w-2.5 h-2.5" style={{ color: style.color }} />
+                                {tech}
+                              </span>
+                            );
+                          })}
                           {item.techStack.length > 3 && (
                             <span className="px-2.5 py-0.5 text-[10px] font-mono tracking-wider text-white/40">
                               +{item.techStack.length - 3}

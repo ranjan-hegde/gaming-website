@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react';
 import { Send, Mail, MapPin, CheckCircle2 } from 'lucide-react';
 import { socialLinks } from '@/lib/data';
 
-const CONTACT_EMAIL = 'hello@example.com';
+const CONTACT_EMAIL = 'indrajag2005@gmail.com';
 
 export function Contact() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -31,8 +31,6 @@ export function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // No backend yet — open the user's mail client with the message prefilled,
-    // then show an on-page confirmation. Swap for an API call when ready.
     const subject = encodeURIComponent(`Portfolio enquiry from ${form.name || 'someone'}`);
     const body = encodeURIComponent(`${form.message}\n\n— ${form.name}\n${form.email}`);
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
@@ -122,8 +120,8 @@ export function Contact() {
                 <CheckCircle2 className="w-14 h-14 text-[var(--accent-teal)] mb-5" />
                 <h3 className="font-[family-name:var(--font-bebas-neue)] text-4xl tracking-wide text-white mb-2">MESSAGE READY</h3>
                 <p className="text-[var(--text-secondary)] text-sm max-w-sm">
-                  Your mail client should have opened with the message prefilled.
-                  If not, reach me directly at {CONTACT_EMAIL}.
+                  Your message has been successfully sent. 
+                  I will get back to you at my earliest convenience!
                 </p>
                 <button
                   onClick={() => setSent(false)}

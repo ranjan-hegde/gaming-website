@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { tools, type ToolItem } from "@/lib/data";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { getTechStyle } from "@/lib/techIcons";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -25,9 +26,11 @@ const MONOGRAM: Record<string, string> = {
   'HLSL/GLSL': 'GL',
 };
 
-/** Floating tool logo — real PNG if present at /logos, else a tinted monogram. */
+/** Floating tool logo using React Icons */
 function ToolLogo({ tool, delay }: { tool: ToolItem; delay: number }) {
-  const [broken, setBroken] = useState(false);
+  const style = getTechStyle(tool.name);
+  const Icon = style.icon;
+
   return (
     <div
       className="flex h-24 w-24 md:h-28 md:w-28 items-center justify-center"
@@ -37,23 +40,10 @@ function ToolLogo({ tool, delay }: { tool: ToolItem; delay: number }) {
         filter: `drop-shadow(0 14px 30px ${tool.color}66)`,
       }}
     >
-      {!broken ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={tool.logo}
-          alt={tool.name}
-          onError={() => setBroken(true)}
-          className="h-full w-full object-contain"
-          draggable={false}
-        />
-      ) : (
-        <span
-          className="font-[family-name:var(--font-bebas-neue)] text-5xl md:text-6xl tracking-wide"
-          style={{ color: tool.color }}
-        >
-          {MONOGRAM[tool.name] ?? tool.name.slice(0, 2)}
-        </span>
-      )}
+      <Icon 
+        className="w-16 h-16 md:w-20 md:h-20"
+        style={{ color: tool.color || style.color }}
+      />
     </div>
   );
 }

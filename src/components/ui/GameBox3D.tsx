@@ -156,7 +156,7 @@ export function GameBox3D({ image, title, onHoverStateChange, onColorExtracted }
           {/* Cover Art */}
           <div 
             className="absolute bottom-0 left-0 right-0 h-[88%] bg-cover bg-center"
-            style={{ backgroundImage: `url(${image})` }}
+            style={{ backgroundImage: `url("${image}")` }}
           />
 
           {/* Glare effect */}

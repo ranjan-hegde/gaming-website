@@ -50,14 +50,14 @@ export const games: Game[] = [
     engine: "Godot",
     language: "GDScript",
     year: "2024",
-    image: "/games/images/Screenshot_20260822_190853_KERO BOT.jpg",
+    image: "/games/images/kero-bot/Screenshot_20260822_190853_KERO_BOT.jpg",
     screenshots: [
-      "/games/images/Screenshot_20260822_190853_KERO BOT.jpg",
-      "/games/images/Screenshot_20260822_190930_KERO BOT.jpg",
-      "/games/images/Screenshot_20260822_191111_KERO BOT.jpg",
-      "/games/images/Screenshot_20260822_191118_KERO BOT.jpg"
+      "/games/images/kero-bot/Screenshot_20260822_190853_KERO_BOT.jpg",
+      "/games/images/kero-bot/Screenshot_20260822_190930_KERO_BOT.jpg",
+      "/games/images/kero-bot/Screenshot_20260822_191111_KERO_BOT.jpg",
+      "/games/images/kero-bot/Screenshot_20260822_191118_KERO_BOT.jpg"
     ],
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+    videoUrl: "/games/videos/Screen_Recording_20260901_093504_KERO_BOT.mp4",
     downloadUrl: "/games/kero-bot.apk",
     description: "A 2D pixel-art platformer where you guide a frog robot through challenging levels filled with enemies, collectibles, and obstacles.",
     longDescription: "Kero Bot is a classic-style 2D platformer built in Godot Engine. Players control a small frog robot navigating through multiple themed levels — from grassy outdoor areas to underground caves and twilight skies. The game features touch-based controls with directional buttons and a jump mechanic, collectible cherries for scoring, enemy mushrooms to avoid, and a health system with heart-based lives.",
@@ -85,13 +85,13 @@ export const games: Game[] = [
     engine: "Python / Pygame",
     language: "Python",
     year: "2024",
-    image: "/games/images/Screenshot_20260822_192057_Pirates Maker.jpg",
+    image: "/games/images/pirates-maker/Screenshot_20260822_192057_Pirates_Maker.jpg",
     screenshots: [
-      "/games/images/Screenshot_20260822_192057_Pirates Maker.jpg",
-      "/games/images/Screenshot_20260822_192115_Pirates Maker.jpg",
-      "/games/images/Screenshot_20260822_192132_Pirates Maker.jpg"
+      "/games/images/pirates-maker/Screenshot_20260822_192057_Pirates_Maker.jpg",
+      "/games/images/pirates-maker/Screenshot_20260822_192115_Pirates_Maker.jpg",
+      "/games/images/pirates-maker/Screenshot_20260822_192132_Pirates_Maker.jpg"
     ],
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    videoUrl: "/games/videos/Screen_Recording_20260901_093622_Pirates_Maker.mp4",
     downloadUrl: "/games/pirates-maker.apk",
     description: "A 2D pirate-themed platformer built with Python & Pygame, featuring sword combat, 6 handcrafted levels, and a world map navigation system.",
     longDescription: "Pirates Maker is a pixel-art 2D platformer developed entirely in Python using the Pygame library. Players take on the role of a swashbuckling pirate navigating through 6 distinct island levels connected by a world map. The game features sword-based combat against enemy robots, palm-tree-filled tropical environments, platforming challenges across floating stone islands, and a timer-based scoring system.",
@@ -119,15 +119,15 @@ export const games: Game[] = [
     engine: "Unity",
     language: "C#",
     year: "2025",
-    image: "/games/images/Screenshot_20260822_192904_fire-hits.jpg",
+    image: "/games/images/fire-hits/Screenshot_20260822_192904_fire-hits.jpg",
     screenshots: [
-      "/games/images/Screenshot_20260822_192904_fire-hits.jpg",
-      "/games/images/Screenshot_20260822_192911_fire-hits.jpg",
-      "/games/images/Screenshot_20260822_192916_fire-hits.jpg",
-      "/games/images/Screenshot_20260822_192920_fire-hits.jpg",
-      "/games/images/Screenshot_20260822_192934_fire-hits.jpg"
+      "/games/images/fire-hits/Screenshot_20260822_192904_fire-hits.jpg",
+      "/games/images/fire-hits/Screenshot_20260822_192911_fire-hits.jpg",
+      "/games/images/fire-hits/Screenshot_20260822_192916_fire-hits.jpg",
+      "/games/images/fire-hits/Screenshot_20260822_192920_fire-hits.jpg",
+      "/games/images/fire-hits/Screenshot_20260822_192934_fire-hits.jpg"
     ],
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+    videoUrl: "/games/videos/Screen_Recording_20260901_093740_fire-hits.mp4",
     downloadUrl: "/games/fire-hits.apk",
     description: "A thrilling 2D action-defense adventure built in Unity where you protect Queen Isolde by slaying waves of undead skeletons.",
     longDescription: "Fire-Hits is a 2D action-defense game built in Unity Engine for Android. Players take on the role of a warrior tasked with protecting Queen Isolde from waves of attacking skeleton enemies in a dark, atmospheric forest setting. The game features real-time combat with a sword attack system, directional movement controls, a kill counter to track your score, and a survival timer.",
@@ -158,14 +158,15 @@ export const games: Game[] = [
     engine: "Unity",
     language: "C#",
     year: "2025",
-    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2071&auto=format&fit=crop",
+    image: "/games/images/polyrace/IMG-20260822-WA0026.jpg",
     screenshots: [
-      "https://images.unsplash.com/photo-1547394765-185e1e68f34e?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1600&auto=format&fit=crop"
+      "/games/images/polyrace/IMG-20260822-WA0026.jpg",
+      "/games/images/polyrace/IMG-20260822-WA0027.jpg",
+      "/games/images/polyrace/IMG-20260822-WA0029.jpg",
+      "/games/images/polyrace/IMG-20260822-WA0032.jpg",
+      "/games/images/polyrace/IMG-20260822-WA0035.jpg",
+      "/games/images/polyrace/IMG-20260822-WA0036.jpg"
     ],
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
     downloadUrl: "#", // In development
     description: "A high-speed 3D low-poly racing game built in Unity featuring hovercraft vehicles, desert tracks, and time attack modes.",
     longDescription: "PolyRace is a 3D racing game built in Unity with a stunning low-poly art style. Players pilot futuristic hovercrafts at extreme speeds (600+ km/h) through procedurally styled desert canyon tracks. The game features a full HUD with speedometer, distance tracker, and precision lap timer. It includes a training mode with hovercraft selection, level selection, and race type options.",
@@ -303,11 +304,11 @@ export const navLinks: NavLink[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  { platform: 'GitHub', url: 'https://github.com/placeholder', icon: 'github' },
-  { platform: 'LinkedIn', url: 'https://linkedin.com/in/placeholder', icon: 'linkedin' },
+  { platform: 'GitHub', url: 'https://github.com/Indraj-2005', icon: 'github' },
+  { platform: 'LinkedIn', url: 'https://www.linkedin.com/in/indraj-a-g-6701b4342/', icon: 'linkedin' },
   { platform: 'Twitter/X', url: 'https://twitter.com/placeholder', icon: 'twitter' },
   { platform: 'Itch.io', url: 'https://placeholder.itch.io', icon: 'itchio' },
-  { platform: 'Email', url: 'mailto:hello@example.com', icon: 'mail' }
+  { platform: 'Email', url: 'mailto:indrajag2005@gmail.com', icon: 'mail' }
 ];
 
 export const narrativeText: string = "I build worlds and I build systems. From real-time 3D environments crafted in Unity and Unreal Engine to distributed cloud architectures and intelligent AI pipelines. Every project starts with the same question: how do we make this feel alive? Whether it's the procedural lighting in a horror game or the real-time data streaming in a SaaS dashboard, I obsess over the details that transform good software into unforgettable experiences. Code is my medium. Impact is the measure.";
